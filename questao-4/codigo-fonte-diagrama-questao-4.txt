@@ -1,0 +1,37 @@
+@startuml
+skinparam monochrome true  
+skinparam backgroundColor #F7F7F7  
+skinparam handwritten true  
+  
+rectangle "Solução" as Solucao {  
+  rectangle "Gateway de Borda" as GW  
+  GW -left-> GW_API : API  
+  rectangle "API Manager" as API_MGR  
+  API_MGR -left-> API_MGR_API : API  
+  rectangle "Onprimise WSDL Service" as WSDL_SRV  
+  WSDL_SRV -left-> WSDL_SRV_WSDL : WSDL  
+  rectangle "Cloud Microservicos GCP" as GCP  
+  GCP -left-> GCP_API : API  
+  rectangle "File Share Netapp" as FS_NETAPP  
+  FS_NETAPP -left-> FS_NETAPP_FS : FS  
+  rectangle "Desenvolvimento em Java Spring" as SPRING  
+  SPRING -left-> SPRING_API : API  
+  rectangle "PostgreSQL" as PG  
+  PG -left-> PG_DB : DB  
+  rectangle "MongoDB" as MONGO  
+  MONGO -left-> MONGO_DB : DB  
+  rectangle "SSL" as SSL  
+  SSL -left-> SSL_SSL : SSL  
+  rectangle "Autenticação 2 Fatores" as AUTH_2FA  
+  AUTH_2FA -left-> AUTH_2FA_2FA : 2FA  
+}  
+  
+GW -> API_MGR: Exposição de Serviços  
+API_MGR -> WSDL_SRV: Chamada WSDL  
+WSDL_SRV -> GCP: Serviço WSDL  
+GCP -> FS_NETAPP: Armazenamento de Dados  
+FS_NETAPP -> PG: Armazenamento de Dados  
+PG -> MONGO: Armazenamento de Dados  
+SSL -> GW: Autenticação SSL  
+AUTH_2FA -> GW: Autenticação 2 Fatores
+@enduml

@@ -1,0 +1,39 @@
+Teste HDI
+
+Etapas do modelo C4:
+
+1) Contexto (Context):
+Nesta etapa, descrevemos o ambiente em que o sistema está sendo desenvolvido e implantado, 
+bem como identificamos as partes interessadas e os requisitos do sistema.
+
+2) Containers:
+Aqui, focamos nos principais componentes do sistema, como aplicativos, serviços e bancos de dados.
+
+3) Componentes:
+Nesta etapa, detalhamos os componentes internos de cada container.
+
+4) Código (Code):
+Aqui já estamos no nível de código, explorando classes, módulos e interações específicas.
+
+
+>> Pergunta 1 (Crie um fluxo de dados para explicar como irá funcionar a sua
+solução) <<
+
+1 - Recebendo uma Simulação de Cotação:
+	- O Portal AutoCompara preenche uma simulação de cotação.
+	- A HDI avalia e retorna um valor de prêmio.
+	- Se o cliente ou o Portal AutoCompara aceitar o valor, a cotação é transmitida para a aplicação HDI.
+
+2 - Processamento no Core:
+	- A cotação entra no Core (sistema interno).
+	- Passa por validação e, se aprovada, a apólice é gerada.
+
+3 - Comunicação com a Susep:
+	- Após a emissão da apólice, a Susep deve ser informada sobre a transação e possivelmente gerar uma apolice final sobre.
+
+4 - Comunicação entre Aplicações:
+ 	- Portal AutoCompara se comunica com:
+	- HDI via transmissão de cotação.
+	- Core de Seguros HANS via validação e emissão de apólice.
+	 - Sistema de Susep via notificação de emissão.
+

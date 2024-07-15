@@ -1,0 +1,28 @@
+Aplicação Portal AutoCompara preenche uma simulação de cotação para a HDI, esta avalia e retorna um Valor de Premio, 
+caso aceito pelo cliente/Portal AutoCompara esta cotação é transmitida para a aplicação HDI. 
+
+Após a cotação entrar no core passa por uma validação e Emite apólice, quando a apólice for gerada deve ser informado a
+Susep sobre a emissão.
+
+Comunicação com 3 aplicações:
+1 - Core de Seguros HANS onprimise Legado com acesso apenas com WSDL;
+2 - AutoCompara disponibiliza APIS REST e esta numa Cloud Privada Azure
+como SAAS;
+3 - Sistema de Susep de RO File Share.
+
+Tecnologias de Referencia que podem ser utilizadas na solução:
+Gateway de borda para exposição de Serviços (Sensedia);
+API Manager (Sensedia);
+Onprimise WSDL Service;
+Cloud Microservicos GCP;
+File Share Netapp;
+Desenvolvimento em Java Spring;
+PostgreSQL como serviço no GCP;
+MongoDB em Atlas Cloud como serviço;
+A Segurança pede que seja fechado um SSL e duplo fator de autenticação.
+O negocio pede que guardemos os dados de Cotação para futuras consultas
+de consistência de transmissão por tempo determinado de 2 anos.
+o Sistema autocompara é de uma parceira de negócios.
+
+dado exposto acima:
+Traga um modelo C4 etapa 1, segundo o requerimento acima

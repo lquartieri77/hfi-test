@@ -1,0 +1,31 @@
+@startuml
+skinparam monochrome true  
+skinparam backgroundColor #FFFFFF  
+skinparam handwritten true  
+  
+actor "Cliente" as Cliente  
+actor "Portal AutoCompara" as PortalAutoCompara  
+actor "HDI" as HDI  
+actor "Susep" as Susep  
+actor "Core de Seguros HANS" as CoreDeSegurosHANS  
+actor "Gateway de Borda" as GatewayDeBorda  
+actor "API Manager" as APIM  
+actor "Cloud Microservicos GCP" as GCP  
+actor "File Share Netapp" as FileShare  
+actor "PostgreSQL" as PostgreSQL  
+actor "MongoDB Atlas Cloud" as MongoDB  
+  
+Cliente ->> PortalAutoCompara: Simulação de cotação  
+PortalAutoCompara ->> HDI: Cotação  
+HDI ->> PortalAutoCompara: Valor de premio  
+PortalAutoCompara ->> CoreDeSegurosHANS: Cotação aceita  
+CoreDeSegurosHANS ->> PortalAutoCompara: Validação e emissão de apólice  
+PortalAutoCompara ->> Susep: Notificação de emissão de apólice  
+CoreDeSegurosHANS ->> GatewayDeBorda: Exposição de serviços  
+GatewayDeBorda ->> APIM: Gerenciamento de APIs  
+APIM ->> GCP: Integração com Cloud Microservicos  
+GCP ->> PostgreSQL: Armazenamento de dados  
+GCP ->> MongoDB: Armazenamento de dados  
+FileShare ->> Susep: Compartilhamento de arquivos  
+PortalAutoCompara ->> FileShare: Armazenamento de dados de cotação
+@enduml

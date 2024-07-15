@@ -1,0 +1,59 @@
+@startuml
+skinparam monochrome true  
+skinparam backgroundColor #F7F7F7  
+skinparam handwritten true  
+  
+actor "Cliente" as C  
+actor "Portal AutoCompara" as PAC  
+actor "Aplicação HDI" as HDI  
+actor "Susep" as SUSEP  
+actor "Desenvolvedor" as DEV  
+  
+rectangle "Portal AutoCompara" {  
+  component "API REST" as PAC_API  
+  component "Cloud Privada Azure" as PAC_CLOUD  
+}  
+  
+rectangle "Aplicação HDI" {  
+  component "Core de Seguros HANS" as HDI_CORE  
+  component "WSDL Service" as HDI_WSDL  
+}  
+  
+rectangle "Susep" {  
+  component "RO File Share" as SUSEP_FS  
+}  
+  
+rectangle "Solução" {  
+  component "Gateway de Borda" as GW  
+  component "API Manager" as API_MGR  
+  component "Onprimise WSDL Service" as WSDL_SRV  
+  component "Cloud Microservicos GCP" as GCP  
+  component "File Share Netapp" as FS_NETAPP  
+  component "Desenvolvimento em Java Spring" as SPRING  
+  component "PostgreSQL" as PG  
+  component "MongoDB" as MONGO  
+  component "SSL" as SSL  
+  component "Autenticação 2 Fatores" as AUTH_2FA  
+}  
+  
+C ->> PAC: Solicita cotação  
+PAC ->> PAC_API: Preenche simulação de cotação  
+PAC_API ->> HDI_CORE: Envia cotação para avaliação  
+HDI_CORE ->> HDI_WSDL: Avalia cotação e retorna valor de prêmio  
+HDI_WSDL ->> PAC_API: Retorna valor de prêmio  
+PAC_API ->> C: Retorna valor de prêmio ao cliente  
+C ->> PAC: Aceita cotação  
+PAC ->> GW: Envia cotação para aplicação HDI  
+GW ->> API_MGR: Exposição de serviços  
+API_MGR ->> WSDL_SRV: Chamada WSDL  
+WSDL_SRV ->> HDI_CORE: Envia cotação para validação  
+HDI_CORE ->> HDI_CORE: Valida cotação e emite apólice  
+HDI_CORE ->> SUSEP_FS: Notifica emissão de apólice  
+SUSEP_FS ->> SUSEP: Notifica emissão de apólice  
+GW ->> FS_NETAPP: Armazena dados de cotação  
+FS_NETAPP ->> PG: Armazena dados de cotação  
+PG ->> MONGO: Armazena dados de cotação  
+SSL ->> GW: Autenticação SSL  
+AUTH_2FA ->> GW: Autenticação 2 fatores  
+DEV ->> SPRING: Desenvolvimento em Java Spring
+@enduml
